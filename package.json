@@ -1,7 +1,7 @@
 {
-    "name": "peertube-plugin-custom-transcoding-profile",
+    "name": "peertube-plugin-custom-transcoding-profile-deinterlace",
     "version": "0.3.4",
-    "description": "Set a custom quality for transcoding videos in Peertube with CRF, preset, tune options, and then some.",
+    "description": "Set a custom quality for transcoding videos in Peertube with CRF, preset, tune options, and then some. (added deinterlace option)",
     "engine": {
         "peertube": ">=3.3.0"
     },

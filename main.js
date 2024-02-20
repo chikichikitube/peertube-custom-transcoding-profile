@@ -18,6 +18,9 @@ async function register({
     const live_default_profile = "high"
     const live_default_audio_config_enabled = false
     const live_default_audio_configuration = "-b:a 286k"
+    
+    const vod_deinterlace_video_config_enabled = false
+    const vod_deinterlace_video_configuration = "bwdif"
 
     const setting_crf_description =
     "Configure the encoding \"quality\". Lower values equate to superior quality but increased file sizes. The default setting is 23 (as per ffmpeg), with optimal values ranging from 18 to 28. Note the logarithmic range: an increase of 6 in the CRF value approximately doubles the file size, while a decrease of 6 halves it. Choose from a spectrum of 0-51."
@@ -69,6 +72,10 @@ async function register({
         vod_profile: await settingsManager.getSetting("vod_profile") || vod_default_profile,
         vod_audio_config_enabled: await settingsManager.getSetting("vod_audio_config_enabled") || vod_default_audio_config_enabled,
         vod_audio_configuration: await settingsManager.getSetting("vod_audio_configuration") || vod_default_audio_configuration,
+        
+        vod_video_config_enabled: await settingsManager.getSetting("vod_video_config_enabled") || vod_deinterlace_video_config_enabled,
+        vod_video_configuration: await settingsManager.getSetting("vod_video_configuration") || vod_deinterlace_video_configuration,
+
         live_crf: await settingsManager.getSetting("live_crf") || live_default_crf,
         live_preset: await settingsManager.getSetting("live_preset") || live_default_preset,
         live_tune: await settingsManager.getSetting("live_tune") || live_default_tune,
@@ -83,6 +90,10 @@ async function register({
         store.vod_profile = settings["vod_profile"]
         store.vod_audio_config_enabled = settings["vod_audio_config_enabled"]
         store.vod_audio_configuration = settings["vod_audio_configuration"]
+
+        store.vod_video_config_enabled = settings["vod_video_config_enabled"]
+        store.vod_video_configuration = settings["vod_video_configuration"]
+
         store.live_crf = settings["live_crf"]
         store.live_preset = settings["live_preset"]
         store.live_tune = settings["live_tune"]
@@ -142,6 +153,26 @@ async function register({
         private: true,
         default: vod_default_audio_configuration,
     })
+
+    // ///////////
+    registerSetting({
+        name: "vod_video_config_enabled",
+        label: "[VOD] Add Video Configuration?",
+        type: "input-checkbox",
+        descriptionHTML: setting_video_config_enabled_description,
+        private: true,
+        default: vod_default_video_config_enabled,
+    })
+    registerSetting({
+        name: "vod_video_configuration",
+        label: "[VOD] Video Configurations",
+        type: "input",
+        descriptionHTML: setting_video_configuration_description,
+        private: true,
+        default: vod_default_video_configuration,
+    })
+
+    ///////
 
     registerSetting({
         name: "live_crf",
